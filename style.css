@@ -80,22 +80,46 @@ img, iframe, video {
 }
 
 .name-wrap h1 {
-  clip-path: inset(-10% 102% -10% 0);
+  visibility: hidden;
 }
 
-.intro-playing .name-wrap h1 {
-  animation: name-wipe 2.5s cubic-bezier(0.6, 0.05, 0.3, 1) both;
+/* cópia do nome por cima, revelada pela largura conforme a câmera passa */
+.name-reveal {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0;
+  overflow: hidden;
+  z-index: 2;
 }
 
-@keyframes name-wipe {
+.intro-playing .name-reveal {
+  animation: reveal-wipe 2.4s cubic-bezier(0.6, 0.05, 0.3, 1) both;
+}
+
+@keyframes reveal-wipe {
   from {
-    clip-path: inset(-10% 102% -10% 0);
-    transform: translateX(-14px);
+    width: 0;
   }
   to {
-    clip-path: inset(-10% -2% -10% 0);
-    transform: translateX(0);
+    width: 100%;
   }
+}
+
+.name-overlay {
+  display: inline-block;
+  white-space: nowrap;
+  font-size: 56px;
+  font-weight: 700;
+  letter-spacing: 6px;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.name-overlay span {
+  color: var(--accent);
 }
 
 .camera-intro {
@@ -110,7 +134,7 @@ img, iframe, video {
 
 .intro-playing .camera-intro {
   display: block;
-  animation: camera-trip 4.6s ease-in-out both;
+  animation: camera-trip 4.2s ease-in-out both;
 }
 
 .camera-intro::after {
@@ -128,7 +152,7 @@ img, iframe, video {
 }
 
 .intro-playing .camera-intro::after {
-  animation: camera-burst 4.6s ease-out both;
+  animation: camera-burst 4.2s ease-out both;
 }
 
 /* trajeto: atravessa puxando o nome, sai até não cobrir nenhuma letra,
@@ -139,53 +163,53 @@ img, iframe, video {
     opacity: 1;
     transform: translate(-50%, -50%) rotate(-12deg) scale(1);
   }
-  55% {
+  57% {
     left: 100%;
     opacity: 1;
     transform: translate(6px, -50%) rotate(2deg) scale(1.02);
   }
-  61% {
+  63% {
     left: 100%;
     opacity: 1;
     transform: translate(6px, -50%) rotate(0deg) scale(1.07);
   }
-  67% {
+  69% {
     left: 100%;
     opacity: 1;
     transform: translate(6px, -50%) rotate(0deg) scale(1);
   }
-  74% {
+  76% {
     left: 100%;
     opacity: 1;
-    transform: translate(6px, -100%) rotate(-3deg) scale(1);
+    transform: translate(6px, -105%) rotate(-3deg) scale(1);
   }
-  83% {
+  84% {
     left: 100%;
     opacity: 1;
-    transform: translate(6px, 30%) rotate(10deg) scale(0.55);
+    transform: translate(6px, 5%) rotate(6deg) scale(0.5);
   }
-  91% {
+  89% {
     left: 100%;
-    opacity: 1;
-    transform: translate(6px, 55%) rotate(18deg) scale(0.15);
+    opacity: 0;
+    transform: translate(6px, 20%) rotate(10deg) scale(0.1);
   }
   100% {
     left: 100%;
     opacity: 0;
-    transform: translate(6px, 60%) rotate(24deg) scale(0);
+    transform: translate(6px, 20%) rotate(10deg) scale(0.1);
   }
 }
 
 @keyframes camera-burst {
-  0%, 55% {
+  0%, 56% {
     opacity: 0;
     transform: scale(0.2);
   }
-  59% {
+  60% {
     opacity: 1;
     transform: scale(1.6);
   }
-  65%, 100% {
+  66%, 100% {
     opacity: 0;
     transform: scale(2.4);
   }
@@ -210,15 +234,15 @@ img, iframe, video {
 
 .intro-playing .name-hole {
   display: block;
-  animation: hole-pop 4.6s ease-in-out both;
+  animation: hole-pop 4.2s ease-in-out both;
 }
 
 @keyframes hole-pop {
-  0%, 64% {
+  0%, 70% {
     opacity: 0;
     transform: translateX(-50%) scale(0.2);
   }
-  72% {
+  77% {
     opacity: 1;
     transform: translateX(-50%) scale(1.1);
   }
@@ -226,7 +250,7 @@ img, iframe, video {
     opacity: 1;
     transform: translateX(-50%) scale(1);
   }
-  100% {
+  97%, 100% {
     opacity: 0;
     transform: translateX(-50%) scale(0.25);
   }
@@ -244,17 +268,17 @@ img, iframe, video {
 
 .intro-playing .hero-flash {
   display: block;
-  animation: flash-screen 4.6s ease-out both;
+  animation: flash-screen 4.2s ease-out both;
 }
 
 @keyframes flash-screen {
-  0%, 56% {
+  0%, 57% {
     opacity: 0;
   }
-  60% {
+  61% {
     opacity: 0.85;
   }
-  66%, 100% {
+  67%, 100% {
     opacity: 0;
   }
 }
@@ -264,7 +288,7 @@ img, iframe, video {
 }
 
 .intro-playing .hero-delay {
-  animation: rise-in 0.8s ease 2.7s both;
+  animation: rise-in 0.8s ease 2.55s both;
 }
 
 @keyframes rise-in {
@@ -291,8 +315,11 @@ img, iframe, video {
 }
 
 .intro-done .name-wrap h1 {
-  clip-path: none;
-  transform: none;
+  visibility: visible;
+}
+
+.intro-done .name-reveal {
+  display: none;
 }
 
 .intro-done .hero-delay {
@@ -324,7 +351,10 @@ img, iframe, video {
     animation: none;
   }
   .name-wrap h1 {
-    clip-path: none;
+    visibility: visible;
+  }
+  .name-reveal {
+    display: none;
   }
   .hero-delay {
     opacity: 1;
@@ -433,6 +463,9 @@ img, iframe, video {
     grid-template-columns: 1fr;
   }
   .hero h1 {
+    font-size: 38px;
+  }
+  .name-overlay {
     font-size: 38px;
   }
 }

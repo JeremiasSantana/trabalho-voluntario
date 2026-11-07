@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LUCAS BRESSANE — Produtor Audiovisual</title>
-  <link rel="stylesheet" href="style.css?v=10">
-  <noscript><style>.name-wrap h1{clip-path:none}.hero-delay{opacity:1}</style></noscript>
+  <link rel="stylesheet" href="style.css?v=11">
+  <noscript><style>.name-wrap h1{visibility:visible}.name-reveal{display:none}.hero-delay{opacity:1}</style></noscript>
 </head>
 <body>
 
@@ -14,6 +14,7 @@
     <div class="container">
       <div class="name-wrap">
         <h1>LUCAS <span>BRESSANE</span></h1>
+        <div class="name-reveal" aria-hidden="true"><span class="name-overlay">LUCAS <span>BRESSANE</span></span></div>
         <div class="name-hole" aria-hidden="true"></div>
         <div class="camera-intro" aria-hidden="true">
           <svg viewBox="0 0 72 54" width="72" height="54">
@@ -516,7 +517,7 @@
 
     function startIntroTimer() {
       clearTimeout(introTimer);
-      const timer = setTimeout(finishIntro, 5000);
+      const timer = setTimeout(finishIntro, 4600);
       introTimer = timer;
     }
 
