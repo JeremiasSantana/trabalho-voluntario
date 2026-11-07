@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LUCAS BRESSANE — Produtor Audiovisual</title>
-  <link rel="stylesheet" href="style.css?v=8">
+  <link rel="stylesheet" href="style.css?v=9">
 </head>
 <body>
 
@@ -28,7 +28,10 @@
       <p class="subtitle hero-delay">Produtor Audiovisual • Fotógrafo • Cinegrafista</p>
       <a class="btn hero-delay" href="#contato">Fale comigo</a>
     </div>
-  </header>
+</header>
+  <script>
+    document.getElementById("hero").classList.add("intro-playing");
+  </script>
 
   <section class="section" id="sobre">
     <div class="container">
@@ -503,16 +506,38 @@
 
   <script>
     const hero = document.getElementById("hero");
+    let introTimer = null;
 
     function finishIntro() {
       hero.classList.add("intro-done");
+      hero.classList.remove("intro-playing");
     }
 
-    setTimeout(finishIntro, 4800);
+    function startIntroTimer() {
+      clearTimeout(introTimer);
+      const timer = setTimeout(finishIntro, 5000);
+      introTimer = timer;
+    }
+
+    function restartIntro() {
+      hero.classList.remove("intro-done");
+      hero.classList.remove("intro-playing");
+      void hero.offsetWidth;
+      hero.classList.add("intro-playing");
+      startIntroTimer();
+    }
+
+    startIntroTimer();
 
     hero.addEventListener("click", function () {
       if (!hero.classList.contains("intro-done")) {
         finishIntro();
+      }
+    });
+
+    window.addEventListener("pageshow", function (event) {
+      if (event.persisted) {
+        restartIntro();
       }
     });
   </script>
