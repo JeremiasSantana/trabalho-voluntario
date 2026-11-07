@@ -72,8 +72,8 @@ img, iframe, video {
 }
 
 /* ---------- INTRO: CÂMERA PUXA O NOME ---------- */
-/* As animações só existem com a classe .intro-playing no hero,
-   que o script coloca a cada carregamento/recarregamento da página. */
+/* Sem animação de CSS: quem move tudo é o script (estilos inline),
+   quadro a quadro, pra funcionar igual em qualquer navegador. */
 .name-wrap {
   position: relative;
   display: inline-block;
@@ -83,7 +83,8 @@ img, iframe, video {
   visibility: hidden;
 }
 
-/* cópia do nome por cima, revelada pela largura conforme a câmera passa */
+/* cópia do nome por cima; a largura dela é o script que abre,
+   no mesmo passo da câmera */
 .name-reveal {
   position: absolute;
   left: 0;
@@ -92,19 +93,6 @@ img, iframe, video {
   width: 0;
   overflow: hidden;
   z-index: 2;
-}
-
-.intro-playing .name-reveal {
-  animation: reveal-wipe 2.4s cubic-bezier(0.6, 0.05, 0.3, 1) both;
-}
-
-@keyframes reveal-wipe {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
 }
 
 .name-overlay {
@@ -123,101 +111,17 @@ img, iframe, video {
 }
 
 .camera-intro {
-  display: none;
   position: absolute;
   top: 50%;
   left: 0;
   width: 72px;
   z-index: 3;
-  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6));
-}
-
-.intro-playing .camera-intro {
-  display: block;
-  animation: camera-trip 4.2s ease-in-out both;
-}
-
-.camera-intro::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 55%;
-  width: 90px;
-  height: 90px;
-  margin: -45px 0 0 -45px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #ffffff 0%, #ffe9a8 35%, transparent 70%);
   opacity: 0;
-  pointer-events: none;
-}
-
-.intro-playing .camera-intro::after {
-  animation: camera-burst 4.2s ease-out both;
-}
-
-/* trajeto: atravessa puxando o nome, sai até não cobrir nenhuma letra,
-   para, dá um pulinho e, ao descer, entra no buraco */
-@keyframes camera-trip {
-  0% {
-    left: 0;
-    opacity: 1;
-    transform: translate(-50%, -50%) rotate(-12deg) scale(1);
-  }
-  57% {
-    left: 100%;
-    opacity: 1;
-    transform: translate(6px, -50%) rotate(2deg) scale(1.02);
-  }
-  63% {
-    left: 100%;
-    opacity: 1;
-    transform: translate(6px, -50%) rotate(0deg) scale(1.07);
-  }
-  69% {
-    left: 100%;
-    opacity: 1;
-    transform: translate(6px, -50%) rotate(0deg) scale(1);
-  }
-  76% {
-    left: 100%;
-    opacity: 1;
-    transform: translate(6px, -105%) rotate(-3deg) scale(1);
-  }
-  84% {
-    left: 100%;
-    opacity: 1;
-    transform: translate(6px, 5%) rotate(6deg) scale(0.5);
-  }
-  89% {
-    left: 100%;
-    opacity: 0;
-    transform: translate(6px, 20%) rotate(10deg) scale(0.1);
-  }
-  100% {
-    left: 100%;
-    opacity: 0;
-    transform: translate(6px, 20%) rotate(10deg) scale(0.1);
-  }
-}
-
-@keyframes camera-burst {
-  0%, 56% {
-    opacity: 0;
-    transform: scale(0.2);
-  }
-  60% {
-    opacity: 1;
-    transform: scale(1.6);
-  }
-  66%, 100% {
-    opacity: 0;
-    transform: scale(2.4);
-  }
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6));
 }
 
 /* buraco: só preto, com uma borda leve */
 .name-hole {
-  display: none;
   position: absolute;
   left: calc(100% + 42px);
   top: 86%;
@@ -232,32 +136,7 @@ img, iframe, video {
   z-index: 2;
 }
 
-.intro-playing .name-hole {
-  display: block;
-  animation: hole-pop 4.2s ease-in-out both;
-}
-
-@keyframes hole-pop {
-  0%, 70% {
-    opacity: 0;
-    transform: translateX(-50%) scale(0.2);
-  }
-  77% {
-    opacity: 1;
-    transform: translateX(-50%) scale(1.1);
-  }
-  90% {
-    opacity: 1;
-    transform: translateX(-50%) scale(1);
-  }
-  97%, 100% {
-    opacity: 0;
-    transform: translateX(-50%) scale(0.25);
-  }
-}
-
 .hero-flash {
-  display: none;
   position: absolute;
   inset: 0;
   background: #ffffff;
@@ -266,63 +145,23 @@ img, iframe, video {
   z-index: 4;
 }
 
-.intro-playing .hero-flash {
-  display: block;
-  animation: flash-screen 4.2s ease-out both;
-}
-
-@keyframes flash-screen {
-  0%, 57% {
-    opacity: 0;
-  }
-  61% {
-    opacity: 0.85;
-  }
-  67%, 100% {
-    opacity: 0;
-  }
-}
-
 .hero-delay {
   opacity: 0;
 }
 
-.intro-playing .hero-delay {
-  animation: rise-in 0.8s ease 2.55s both;
-}
-
-@keyframes rise-in {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* depois da intro (ou ao clicar no topo) some com os restos da animação */
-.intro-done .camera-intro,
-.intro-done .name-hole,
-.intro-done .hero-flash {
-  display: none;
-}
-
-.intro-done .name-wrap h1,
-.intro-done .hero-delay {
-  animation: none;
-}
-
-.intro-done .name-wrap h1 {
+/* fim da intro (ou clique no topo): nome de verdade entra e o resto some */
+.intro-off .name-wrap h1 {
   visibility: visible;
 }
 
-.intro-done .name-reveal {
+.intro-off .name-reveal,
+.intro-off .camera-intro,
+.intro-off .name-hole,
+.intro-off .hero-flash {
   display: none;
 }
 
-.intro-done .hero-delay {
+.intro-off .hero-delay {
   opacity: 1;
 }
 
@@ -337,27 +176,6 @@ img, iframe, video {
   .name-hole {
     left: calc(100% + 30px);
     width: 64px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .camera-intro,
-  .name-hole,
-  .hero-flash {
-    display: none;
-  }
-  .intro-playing .name-wrap h1,
-  .intro-playing .hero-delay {
-    animation: none;
-  }
-  .name-wrap h1 {
-    visibility: visible;
-  }
-  .name-reveal {
-    display: none;
-  }
-  .hero-delay {
-    opacity: 1;
   }
 }
 
