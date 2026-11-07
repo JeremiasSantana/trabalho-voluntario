@@ -247,11 +247,13 @@
         }
         document.body.style.transform = "";
 
+        document.documentElement.style.scrollBehavior = "auto";
         const tempoDescida = tempo - ANTECIPA;
         let p = tempoDescida / duracao;
         if (p >= 1) {
           window.scrollTo(0, deOnde + distancia);
           rolando = false;
+          document.documentElement.style.scrollBehavior = "";
           history.pushState(null, "", "#contato");
           return;
         }
@@ -264,6 +266,7 @@
         if (rolando) {
           rolando = false;
           document.body.style.transform = "";
+          document.documentElement.style.scrollBehavior = "";
         }
       }
 
