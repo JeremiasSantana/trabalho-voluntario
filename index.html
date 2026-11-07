@@ -198,87 +198,7 @@
       comeca();
     })();
   </script>
-  <script>
-    (function () {
-      const botao = document.querySelector('a[href="#contato"]');
-      const alvo = document.getElementById("contato");
-      if (!botao || !alvo) {
-        return;
-      }
-
-      let rolando = false;
-      let inicioRolagem = null;
-      let deOnde = 0;
-      let distancia = 0;
-      let duracao = 0;
-
-      const ANTECIPA = 380;
-
-      function suave(p) {
-        return p * p * (3 - 2 * p);
-      }
-
-      function duracaoPara(dist) {
-        return 1000;
-      }
-
-      function quadroRolagem(agora) {
-        if (!rolando) {
-          return;
-        }
-        if (inicioRolagem === null) {
-          inicioRolagem = agora;
-        }
-        const tempo = agora - inicioRolagem;
-
-        if (tempo < ANTECIPA) {
-          const pA = tempo / ANTECIPA;
-          const estica = Math.sin(pA * Math.PI) * -16;
-          document.body.style.transform = "translateY(" + estica + "px)";
-          requestAnimationFrame(quadroRolagem);
-          return;
-        }
-        document.body.style.transform = "";
-
-        document.documentElement.style.scrollBehavior = "auto";
-        const tempoDescida = tempo - ANTECIPA;
-        let p = tempoDescida / duracao;
-        if (p >= 1) {
-          window.scrollTo(0, deOnde + distancia);
-          rolando = false;
-          document.documentElement.style.scrollBehavior = "";
-          history.pushState(null, "", "#contato");
-          return;
-        }
-        const posicao = deOnde + distancia * suave(p);
-        window.scrollTo(0, posicao);
-        requestAnimationFrame(quadroRolagem);
-      }
-
-      function cancela() {
-        if (rolando) {
-          rolando = false;
-          document.body.style.transform = "";
-          document.documentElement.style.scrollBehavior = "";
-        }
-      }
-
-      botao.addEventListener("click", function (evento) {
-        evento.preventDefault();
-        const destino = alvo.getBoundingClientRect().top + window.scrollY;
-        deOnde = window.scrollY;
-        distancia = destino - deOnde;
-        duracao = duracaoPara(distancia);
-        inicioRolagem = null;
-        rolando = true;
-        requestAnimationFrame(quadroRolagem);
-      });
-
-      window.addEventListener("wheel", cancela, { passive: true });
-      window.addEventListener("touchstart", cancela, { passive: true });
-      window.addEventListener("keydown", cancela);
-    })();
-  </script>
+  
 
   <section class="section" id="sobre">
     <div class="container">
@@ -753,5 +673,86 @@
 
   
 
+<script>
+    (function () {
+      const botao = document.querySelector('a[href="#contato"]');
+      const alvo = document.getElementById("contato");
+      if (!botao || !alvo) {
+        return;
+      }
+
+      let rolando = false;
+      let inicioRolagem = null;
+      let deOnde = 0;
+      let distancia = 0;
+      let duracao = 0;
+
+      const ANTECIPA = 380;
+
+      function suave(p) {
+        return p * p * (3 - 2 * p);
+      }
+
+      function duracaoPara(dist) {
+        return 1000;
+      }
+
+      function quadroRolagem(agora) {
+        if (!rolando) {
+          return;
+        }
+        if (inicioRolagem === null) {
+          inicioRolagem = agora;
+        }
+        const tempo = agora - inicioRolagem;
+
+        if (tempo < ANTECIPA) {
+          const pA = tempo / ANTECIPA;
+          const estica = Math.sin(pA * Math.PI) * -16;
+          document.body.style.transform = "translateY(" + estica + "px)";
+          requestAnimationFrame(quadroRolagem);
+          return;
+        }
+        document.body.style.transform = "";
+
+        document.documentElement.style.scrollBehavior = "auto";
+        const tempoDescida = tempo - ANTECIPA;
+        let p = tempoDescida / duracao;
+        if (p >= 1) {
+          window.scrollTo(0, deOnde + distancia);
+          rolando = false;
+          document.documentElement.style.scrollBehavior = "";
+          history.pushState(null, "", "#contato");
+          return;
+        }
+        const posicao = deOnde + distancia * suave(p);
+        window.scrollTo(0, posicao);
+        requestAnimationFrame(quadroRolagem);
+      }
+
+      function cancela() {
+        if (rolando) {
+          rolando = false;
+          document.body.style.transform = "";
+          document.documentElement.style.scrollBehavior = "";
+        }
+      }
+
+      botao.addEventListener("click", function (evento) {
+        evento.preventDefault();
+        const destino = alvo.getBoundingClientRect().top + window.scrollY;
+        deOnde = window.scrollY;
+        distancia = destino - deOnde;
+        duracao = duracaoPara(distancia);
+        inicioRolagem = null;
+        rolando = true;
+        requestAnimationFrame(quadroRolagem);
+      });
+
+      window.addEventListener("wheel", cancela, { passive: true });
+      window.addEventListener("touchstart", cancela, { passive: true });
+      window.addEventListener("keydown", cancela);
+    })();
+  </script>
 </body>
 </html>
