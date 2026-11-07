@@ -8,11 +8,25 @@
 </head>
 <body>
 
-  <header class="hero">
+  <header class="hero" id="hero">
+    <div class="hero-flash" aria-hidden="true"></div>
     <div class="container">
-      <h1>LUCAS <span>BRESSANE</span></h1>
-      <p class="subtitle">Produtor Audiovisual • Fotógrafo • Cinegrafista</p>
-      <a class="btn" href="#contato">Fale comigo</a>
+      <div class="name-wrap">
+        <h1>LUCAS <span>BRESSANE</span></h1>
+        <div class="name-hole" aria-hidden="true"></div>
+        <div class="camera-intro" aria-hidden="true">
+          <svg viewBox="0 0 72 54" width="72" height="54">
+            <rect x="4" y="14" width="64" height="38" rx="7" fill="#17171b" stroke="#3a3a43" stroke-width="2"></rect>
+            <rect x="26" y="6" width="20" height="10" rx="3" fill="#17171b" stroke="#3a3a43" stroke-width="2"></rect>
+            <circle cx="36" cy="33" r="12" fill="#26262e" stroke="#c9a86a" stroke-width="2"></circle>
+            <circle cx="36" cy="33" r="6" fill="#0b0b0d"></circle>
+            <circle cx="39" cy="30" r="2" fill="#ece9e2"></circle>
+            <circle cx="60" cy="20" r="3" fill="#c8102e"></circle>
+          </svg>
+        </div>
+      </div>
+      <p class="subtitle hero-delay">Produtor Audiovisual • Fotógrafo • Cinegrafista</p>
+      <a class="btn hero-delay" href="#contato">Fale comigo</a>
     </div>
   </header>
 
@@ -483,6 +497,22 @@
     document.addEventListener("keydown", function (event) {
       if (event.key === "Escape" && videoBox.classList.contains("open")) {
         closeViewer();
+      }
+    });
+  </script>
+
+  <script>
+    const hero = document.getElementById("hero");
+
+    function finishIntro() {
+      hero.classList.add("intro-done");
+    }
+
+    setTimeout(finishIntro, 4800);
+
+    hero.addEventListener("click", function () {
+      if (!hero.classList.contains("intro-done")) {
+        finishIntro();
       }
     });
   </script>

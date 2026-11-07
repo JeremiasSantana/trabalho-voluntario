@@ -67,6 +67,195 @@ img, iframe, video {
   border-bottom: 1px solid var(--border);
   padding: 72px 24px 56px;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ---------- INTRO: CÂMERA PUXA O NOME ---------- */
+.name-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.name-wrap h1 {
+  animation: name-wipe 2.8s cubic-bezier(0.6, 0.05, 0.3, 1) 0.1s both;
+}
+
+@keyframes name-wipe {
+  from {
+    clip-path: inset(-10% 102% -10% 0);
+    transform: translateX(-14px);
+  }
+  to {
+    clip-path: inset(-10% -2% -10% 0);
+    transform: translateX(0);
+  }
+}
+
+.camera-intro {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  z-index: 3;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6));
+  animation: camera-trip 4.4s ease-in-out 0.1s both;
+}
+
+.camera-intro::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 55%;
+  width: 90px;
+  height: 90px;
+  margin: -45px 0 0 -45px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 0%, #ffe9a8 35%, transparent 70%);
+  opacity: 0;
+  animation: camera-burst 4.4s ease-out 0.1s both;
+  pointer-events: none;
+}
+
+@keyframes camera-trip {
+  0% {
+    left: 0;
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(-12deg) scale(1);
+  }
+  62% {
+    left: 100%;
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(3deg) scale(1.03);
+  }
+  70% {
+    left: 100%;
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(0deg) scale(1.1);
+  }
+  77% {
+    left: 100%;
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(0deg) scale(1.02);
+  }
+  88% {
+    left: 100%;
+    opacity: 1;
+    transform: translate(-50%, 15%) rotate(18deg) scale(0.5);
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+    transform: translate(-50%, 60%) rotate(40deg) scale(0);
+  }
+}
+
+@keyframes camera-burst {
+  0%, 68% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  72% {
+    opacity: 1;
+    transform: scale(1.6);
+  }
+  79%, 100% {
+    opacity: 0;
+    transform: scale(2.4);
+  }
+}
+
+.name-hole {
+  position: absolute;
+  left: 100%;
+  top: 82%;
+  width: 88px;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, #000000 32%, rgba(200, 16, 46, 0.55) 66%, transparent 74%);
+  opacity: 0;
+  transform: translateX(-50%) scale(0.2);
+  animation: hole-pop 4.4s ease-in-out 0.1s both;
+  z-index: 2;
+}
+
+@keyframes hole-pop {
+  0%, 80% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.2);
+  }
+  88% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.15);
+  }
+  96% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.3);
+  }
+}
+
+.hero-flash {
+  position: absolute;
+  inset: 0;
+  background: #ffffff;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 4;
+  animation: flash-screen 4.4s ease-out 0.1s both;
+}
+
+@keyframes flash-screen {
+  0%, 68% {
+    opacity: 0;
+  }
+  72% {
+    opacity: 0.85;
+  }
+  78%, 100% {
+    opacity: 0;
+  }
+}
+
+.hero-delay {
+  animation: rise-in 0.8s ease 3s backwards;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* depois da intro (ou ao clicar no topo) some com os restos da animação */
+.intro-done .camera-intro,
+.intro-done .name-hole,
+.intro-done .hero-flash {
+  display: none;
+}
+
+.intro-done .name-wrap h1,
+.intro-done .hero-delay {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .camera-intro,
+  .name-hole,
+  .hero-flash {
+    display: none;
+  }
+  .name-wrap h1,
+  .hero-delay {
+    animation: none;
+  }
 }
 
 .hero h1 {
