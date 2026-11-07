@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
+  <!-- fundo cubista: planos geométricos fragmentados -->
+  <rect width="192" height="192" fill="#111113"/>
+  <g stroke="#0a0a0c" stroke-width="3">
+    <polygon points="0,0 70,0 30,60 0,80" fill="#1f1f24"/>
+    <polygon points="70,0 192,0 150,50 30,60" fill="#26262e"/>
+    <polygon points="192,0 192,90 150,50" fill="#c8102e"/>
+    <polygon points="0,80 30,60 44,124 0,150" fill="#17171b"/>
+    <polygon points="192,90 192,192 148,164 150,124" fill="#1f1f24"/>
+    <polygon points="0,150 44,124 48,164 30,192 0,192" fill="#c9a86a"/>
+  </g>
+
+  <!-- letra L cubista: blocos com cortes diagonais -->
+  <g stroke="#0a0a0c" stroke-width="3.5" stroke-linejoin="round">
+    <!-- haste vertical -->
+    <polygon points="48,28 92,28 92,74 48,96" fill="#ece9e2"/>
+    <polygon points="48,96 92,74 92,124 48,124" fill="#d8d3c8"/>
+    <!-- pé horizontal -->
+    <polygon points="48,124 104,124 124,164 48,164" fill="#ece9e2"/>
+    <polygon points="104,124 150,124 150,164 124,164" fill="#c8102e"/>
+    <!-- faceta de corte no canto -->
+    <polygon points="48,124 92,124 78,164 48,164" fill="#c9a86a" opacity="0.9"/>
+  </g>
+
+  <!-- ponte que conecta a câmera à letra -->
+  <polygon points="92,64 112,58 112,100 92,106" fill="#c9a86a" stroke="#0a0a0c" stroke-width="3" stroke-linejoin="round"/>
+
+  <!-- câmera em 90 graus (em pé), conectada ao L -->
+  <g transform="rotate(90 126 80)">
+    <!-- corpo -->
+    <rect x="100" y="62" width="52" height="36" rx="6" fill="#17171b" stroke="#0a0a0c" stroke-width="3.5"/>
+    <!-- topo / visor -->
+    <rect x="112" y="54" width="16" height="9" rx="2" fill="#26262e" stroke="#0a0a0c" stroke-width="3"/>
+    <rect x="138" y="56" width="9" height="7" rx="2" fill="#c8102e" stroke="#0a0a0c" stroke-width="2.5"/>
+    <!-- lente -->
+    <circle cx="126" cy="80" r="12.5" fill="#0a0a0c" stroke="#ece9e2" stroke-width="3"/>
+    <circle cx="126" cy="80" r="6" fill="#3d4d66"/>
+    <circle cx="123" cy="77" r="2.2" fill="#ece9e2"/>
+    <!-- flash -->
+    <circle cx="108" cy="70" r="2.6" fill="#c9a86a"/>
+  </g>
+</svg>
