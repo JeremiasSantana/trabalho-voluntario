@@ -198,6 +198,79 @@
       comeca();
     })();
   </script>
+  <script>
+    (function () {
+      const botao = document.querySelector('a[href="#contato"]');
+      const alvo = document.getElementById("contato");
+      if (!botao || !alvo) {
+        return;
+      }
+
+      let rolando = false;
+      let inicioRolagem = null;
+      let deOnde = 0;
+      let distancia = 0;
+      let duracao = 0;
+
+      function suave(p) {
+        if (p < 0.5) {
+          return 4 * p * p * p;
+        }
+        const q = -2 * p + 2;
+        return 1 - (q * q * q) / 2;
+      }
+
+      function duracaoPara(dist) {
+        let d = Math.abs(dist) * 0.85;
+        if (d < 1200) {
+          d = 1200;
+        }
+        if (d > 4000) {
+          d = 4000;
+        }
+        return d;
+      }
+
+      function quadroRolagem(agora) {
+        if (!rolando) {
+          return;
+        }
+        if (inicioRolagem === null) {
+          inicioRolagem = agora;
+        }
+        const tempo = agora - inicioRolagem;
+        let p = tempo / duracao;
+        if (p >= 1) {
+          window.scrollTo(0, deOnde + distancia);
+          rolando = false;
+          history.pushState(null, "", "#contato");
+          return;
+        }
+        const posicao = deOnde + distancia * suave(p);
+        window.scrollTo(0, posicao);
+        requestAnimationFrame(quadroRolagem);
+      }
+
+      function cancela() {
+        rolando = false;
+      }
+
+      botao.addEventListener("click", function (evento) {
+        evento.preventDefault();
+        const destino = alvo.getBoundingClientRect().top + window.scrollY;
+        deOnde = window.scrollY;
+        distancia = destino - deOnde;
+        duracao = duracaoPara(distancia);
+        inicioRolagem = null;
+        rolando = true;
+        requestAnimationFrame(quadroRolagem);
+      });
+
+      window.addEventListener("wheel", cancela, { passive: true });
+      window.addEventListener("touchstart", cancela, { passive: true });
+      window.addEventListener("keydown", cancela);
+    })();
+  </script>
 
   <section class="section" id="sobre">
     <div class="container">
