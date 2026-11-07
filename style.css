@@ -79,6 +79,10 @@ img, iframe, video {
   display: inline-block;
 }
 
+.name-wrap h1 {
+  clip-path: inset(-10% 102% -10% 0);
+}
+
 .intro-playing .name-wrap h1 {
   animation: name-wipe 2.5s cubic-bezier(0.6, 0.05, 0.3, 1) both;
 }
@@ -255,8 +259,12 @@ img, iframe, video {
   }
 }
 
+.hero-delay {
+  opacity: 0;
+}
+
 .intro-playing .hero-delay {
-  animation: rise-in 0.8s ease 2.7s backwards;
+  animation: rise-in 0.8s ease 2.7s both;
 }
 
 @keyframes rise-in {
@@ -282,6 +290,15 @@ img, iframe, video {
   animation: none;
 }
 
+.intro-done .name-wrap h1 {
+  clip-path: none;
+  transform: none;
+}
+
+.intro-done .hero-delay {
+  opacity: 1;
+}
+
 @media (max-width: 640px) {
   .camera-intro {
     width: 52px;
@@ -305,6 +322,12 @@ img, iframe, video {
   .intro-playing .name-wrap h1,
   .intro-playing .hero-delay {
     animation: none;
+  }
+  .name-wrap h1 {
+    clip-path: none;
+  }
+  .hero-delay {
+    opacity: 1;
   }
 }
 
