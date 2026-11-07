@@ -212,21 +212,19 @@
       let distancia = 0;
       let duracao = 0;
 
+      const ANTECIPA = 380;
+
       function suave(p) {
-        if (p < 0.5) {
-          return 4 * p * p * p;
-        }
-        const q = -2 * p + 2;
-        return 1 - (q * q * q) / 2;
+        return p * p * (3 - 2 * p);
       }
 
       function duracaoPara(dist) {
-        let d = Math.abs(dist) * 0.85;
-        if (d < 1200) {
-          d = 1200;
+        let d = Math.abs(dist) * 1.35;
+        if (d < 3000) {
+          d = 3000;
         }
-        if (d > 4000) {
-          d = 4000;
+        if (d > 10000) {
+          d = 10000;
         }
         return d;
       }
@@ -239,7 +237,18 @@
           inicioRolagem = agora;
         }
         const tempo = agora - inicioRolagem;
-        let p = tempo / duracao;
+
+        if (tempo < ANTECIPA) {
+          const pA = tempo / ANTECIPA;
+          const estica = Math.sin(pA * Math.PI) * -16;
+          document.body.style.transform = "translateY(" + estica + "px)";
+          requestAnimationFrame(quadroRolagem);
+          return;
+        }
+        document.body.style.transform = "";
+
+        const tempoDescida = tempo - ANTECIPA;
+        let p = tempoDescida / duracao;
         if (p >= 1) {
           window.scrollTo(0, deOnde + distancia);
           rolando = false;
@@ -252,7 +261,10 @@
       }
 
       function cancela() {
-        rolando = false;
+        if (rolando) {
+          rolando = false;
+          document.body.style.transform = "";
+        }
       }
 
       botao.addEventListener("click", function (evento) {
