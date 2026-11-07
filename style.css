@@ -624,3 +624,41 @@ img, iframe, video {
   font-size: 14px;
   margin-top: 8px;
 }
+
+/* ---------- REELS: grade vertical, jeito de celular ---------- */
+.grid.reels-grid {
+  grid-template-columns: repeat(6, 1fr);
+  gap: 14px;
+}
+
+.reels-grid .work-card {
+  border: 3px solid #2f2f37;
+  border-radius: 22px;
+}
+
+.reels-grid .work-card video {
+  height: auto;
+  aspect-ratio: 9 / 16;
+}
+
+@media (max-width: 1100px) {
+  .grid.reels-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 800px) {
+  .grid.reels-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* visualizador em modo vertical (reels) */
+.video-stage.vertical {
+  width: min(420px, 94vw);
+}
+
+.video-stage.vertical video {
+  aspect-ratio: 9 / 16;
+  max-height: 84vh;
+}

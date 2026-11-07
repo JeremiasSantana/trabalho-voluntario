@@ -9,7 +9,7 @@
   <meta property="og:title" content="Lucas Bressane - Portfólio">
   <meta property="og:description" content="Portfólio de Lucas Bressane, produtor audiovisual, fotógrafo e cinegrafista.">
   <meta property="og:type" content="website">
-  <link rel="stylesheet" href="style.css?v=13">
+  <link rel="stylesheet" href="style.css?v=14">
   <noscript><style>.name-wrap h1{visibility:visible}.name-reveal,.camera-intro,.name-hole,.hero-flash{display:none}.hero-delay{opacity:1}</style></noscript>
 </head>
 <body>
@@ -281,7 +281,7 @@
   <section class="section alt" id="reels">
     <div class="container">
       <h2>Edição para Reels</h2>
-      <div class="grid">
+      <div class="grid reels-grid">
         <article class="card work-card" tabindex="0">
           <video src="https://lucasbressane.my.canva.site/_assets/video/c478488d20e5eb0f2d383091aa9cae1d.mp4" poster="https://lucasbressane.my.canva.site/_assets/video/05d26ff00a58cb56d76efc343428330a.jpg" preload="metadata" muted loop playsinline></video>
           <div class="media-overlay">
@@ -590,6 +590,7 @@
     const viewerVideo = document.getElementById("viewer-video");
     const viewerIframe = document.getElementById("viewer-iframe");
     const viewerCaption = document.getElementById("viewer-caption");
+    const videoStage = document.querySelector(".video-stage");
 
     function openViewer(caption) {
       viewerCaption.textContent = caption;
@@ -605,6 +606,7 @@
       viewerIframe.src = "";
       viewerVideo.style.display = "none";
       viewerIframe.style.display = "none";
+      videoStage.classList.remove("vertical");
       videoBox.classList.remove("open");
       videoBox.setAttribute("aria-hidden", "true");
       document.body.style.overflow = "";
@@ -655,6 +657,7 @@
       card.addEventListener("click", function () {
         viewerIframe.style.display = "none";
         viewerVideo.style.display = "block";
+        videoStage.classList.toggle("vertical", card.closest("#reels") !== null);
         viewerVideo.src = video.src;
         openViewer(captionOf(card));
         viewerVideo.play();
