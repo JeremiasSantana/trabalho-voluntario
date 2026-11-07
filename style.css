@@ -213,10 +213,132 @@ img, iframe, video {
 }
 
 /* ---------- FOTOGRAFIA ---------- */
+.photo-card {
+  position: relative;
+  cursor: zoom-in;
+}
+
 .photo-card img {
   width: 100%;
-  height: 260px;
+  height: 300px;
   object-fit: cover;
+  transition: transform 0.45s ease;
+}
+
+/* a imagem só estica no hover */
+.photo-card:hover img,
+.photo-card:focus img {
+  transform: scale(1.08);
+}
+
+/* a mensagem só aparece no hover */
+.photo-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 36px 18px 16px;
+  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.88));
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+.photo-card:hover .photo-overlay,
+.photo-card:focus .photo-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.photo-overlay h3 {
+  margin-top: 8px;
+  font-size: 16px;
+}
+
+.photo-hint {
+  color: var(--text-muted);
+  font-size: 12px;
+  margin-top: 4px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ---------- VISUALIZADOR / LIGHTBOX ---------- */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.94);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.lightbox.open {
+  display: flex;
+}
+
+.lightbox-stage {
+  max-width: 94vw;
+  max-height: 76vh;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-stage img {
+  max-width: 88vw;
+  max-height: 74vh;
+  object-fit: contain;
+  cursor: zoom-in;
+  transition: transform 0.2s ease;
+  transform-origin: center center;
+}
+
+.lightbox-toolbar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.lightbox-btn {
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  min-width: 42px;
+  height: 42px;
+  padding: 0 14px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.lightbox-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent-hover);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 24px;
+}
+
+.lightbox-caption {
+  color: var(--text);
+  margin-top: 14px;
+  letter-spacing: 1px;
+}
+
+.lightbox-tip {
+  color: var(--text-faint);
+  font-size: 12px;
+  margin-top: 6px;
 }
 
 /* ---------- EXPERIÊNCIA ---------- */
